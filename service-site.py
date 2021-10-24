@@ -4,7 +4,7 @@ import datetime
 URL = "https://suchonsite-server.herokuapp.com/"
     
 
-class TestAPI(unittest.TestCase):
+class TestServiceSite(unittest.TestCase):
     def setUp(self):
         pass
 
