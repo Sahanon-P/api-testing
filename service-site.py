@@ -2,7 +2,7 @@ import unittest
 import requests
 import datetime
 URL = "https://suchonsite-server.herokuapp.com/"
-
+    
 
 class TestAPI(unittest.TestCase):
     def setUp(self):
@@ -42,6 +42,12 @@ class TestAPI(unittest.TestCase):
         endpoint = URL + f"people/by_date/twenty-oct-2021"
         response = requests.get(endpoint)
         self.assertEqual(404, response.status_code)
+
+    def test_date_with_parse_date(self):
+        endpoint = URL + f"people/by_date/20-10-2021"
+        response = requests.get(endpoint)
+        date = response.json()['date']
+        self.assertEqual(date, "20-10-2021")
 
 
 
