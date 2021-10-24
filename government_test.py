@@ -33,11 +33,30 @@ class TestGovernment(unittest.TestCase):
         response = requests.get(endpoint)
         data = response.json()
         self.assertEqual("1111111111111",data[0]['citizen_id'])
-        self.assertEqual("2222222222222",data[1]['citizen_id']) 
+        self.assertEqual("2222222222222",data[1]['citizen_id'])
 
-    def tearDown(self):
+    def test_post_reservations(self):
+        endpoint = URL + f"reservation?citizen_id=1111111111111&site_name=Site1&vaccine_name=Sinovac"
+        response = requests.post(endpoint) 
+        self.assertEqual("reservation success!",response.json()['feedback'])
+
+    def test_get_reservations(self):
+        endpoint = URL + f"reservation"
+        response = requests.get(endpoint) 
+        data = response.json()
+        self.assertEqual("1111111111111",data[0]['citizen_id']) 
+        
+    def test_post_unexisting_id(self):
+        endpoint = URL + f"reservation?citizen_id=3333333333333&site_name=Site1&vaccine_name=Moderna"
+        response = requests.post(endpoint)
+        self.assertEqual(400, response.status_code)
+
+
+    def tearDown(self): 
         endpoint = URL + f"citizen"
-        response = requests.delete(endpoint)
+        requests.delete(endpoint)
+        endpoint_delete = URL + "reservation?citizen_id=1111111111111"
+        requests.delete(endpoint_delete)
 
 
 if __name__ == "__main__":
