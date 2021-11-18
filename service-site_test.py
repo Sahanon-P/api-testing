@@ -26,22 +26,29 @@ class TestServiceSite(unittest.TestCase):
         # Only this date that provide the data
         endpoint = URL + f"people/by_date/20-10-2021"
         response = requests.get(endpoint)
-        self.assertEqual("application/json; charset=utf-8", response.headers["Content-Type"])
+        data = response.json()
+        people = data['people']
+        self.assertTrue(len(people) > 0)
 
     def test_get_appointment_with_unexisting_date(self):
         endpoint = URL + f"people/by_date/20-20-2021"
         response = requests.get(endpoint)
-        self.assertEqual(404, response.status_code)
+        self.assertEqual('',response.text)
+        self.assertEqual(204, response.status_code)
 
     def test_get_appointment_without_date(self):
         endpoint = URL + f"people/by_date/"
         response = requests.get(endpoint)
-        self.assertEqual(404, response.status_code)
+        data = response.json()
+        msg = data['msg']
+        self.assertEqual(msg, "no date param included")
+        self.assertEqual(406, response.status_code)
 
     def test_get_appointment_with_invalid_date(self):
         endpoint = URL + f"people/by_date/twenty-oct-2021"
         response = requests.get(endpoint)
-        self.assertEqual(404, response.status_code)
+        self.assertEqual('',response.text)
+        self.assertEqual(204, response.status_code)
 
     def test_date_with_parse_date(self):
         endpoint = URL + f"people/by_date/20-10-2021"

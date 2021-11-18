@@ -3,11 +3,20 @@
 ## Service Site
 The chosen service site API group is [Suchon Site](https://github.com/SuchonSite/Server)
 
-There are 2 APIs in this group which you can see in this documentation [API Documentation](https://github.com/SuchonSite/Server/wiki/API)
+ํYou can see all the API and usage in this documentation [API Documentation](https://suchonsite-server.herokuapp.com/api-docs/)
 
-Most of the endpoints will be `GET` request so the I can only check the status code and headers contents.
+**Testing Endpoint**
+- `GET` /people/all
+- `GET` /people/by_date/{:date}
+
 
 ## Government
-The chosen Government API group is [World Class Government](https://github.com/WorldClassProgrammers/Government-APIs)
+The chosen Government API group is [Flamby](https://github.com/flamxby)
 
-Most of the endpoints are actually work and easy to test. You can see their API documentation [here](https://wcg-apis.herokuapp.com/api-doc/#/)
+ํYou can see all the API and usage in this documentation [API Documentation](https://flamxby.herokuapp.com/docs)
+
+**Testing Endpoint**
+- `GET` /user/{:citizen_id}
+- `GET` /reservation/{:reservation}
+- `POST` /login
+- `POST` /reservation
